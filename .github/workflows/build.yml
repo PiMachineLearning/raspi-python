@@ -10,8 +10,20 @@ on:
 
 
 jobs:
-  run:
+  build-matrix:
     runs-on: ubuntu-latest
+    steps:
+      - id: set-matrix
+        run: echo "version_matrix=$(curl https://www.python.org/ftp/python/ 2>/dev/null | grep -oP '\d+\.\d+\.\d+')" >> $GITHUB_OUTPUT
+    outputs:
+      version_matrix: ${{ steps.set-matrix.outputs.version_matrix }}
+      
+  run:
+    needs: build-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJson(needs.build-matrix.outputs.version_matrix) }}
     steps:
       - uses: actions/checkout@v3
 
@@ -29,5 +41,5 @@ jobs:
         run: |
             cd $GITHUB_WORKSPACE
             sudo apt-get install -y qemu-user-static binfmt-support
-            chmod +x main.sh all.sh
-            ./all.sh
+            chmod +x main.sh
+            ./main.sh ${{ matrix.version }}
