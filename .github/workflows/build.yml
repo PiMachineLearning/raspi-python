@@ -24,6 +24,8 @@ jobs:
     strategy:
       matrix:
         version: ${{ fromJson(needs.build-matrix.outputs.version_matrix) }}
+      fail-fast: false
+      
     steps:
       - uses: actions/checkout@v3
 
