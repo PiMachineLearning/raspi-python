@@ -14,3 +14,7 @@ RUN wget https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz && t
 RUN cd Python-${VERSION} && ./configure && make -j$(nproc) && make install
 
 RUN rm -rf Python-${VERSION} Python-${VERSION}.tgz /etc/apt/sources.list.d/debsrc.list
+
+RUN echo "[global]\
+extra-index-url=https://www.piwheels.org/simple" > /etc/pip.conf 
+# replicate raspberry pi os pip.conf
