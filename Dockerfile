@@ -17,3 +17,6 @@ RUN rm -rf Python-${VERSION} Python-${VERSION}.tgz /etc/apt/sources.list.d/debsr
 
 RUN echo -e "[global]\nextra-index-url=https://www.piwheels.org/simple" > /etc/pip.conf 
 # replicate raspberry pi os pip.conf
+
+# remove existing python3
+RUN apt remove python3
