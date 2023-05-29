@@ -19,4 +19,4 @@ RUN echo -e "[global]\nextra-index-url=https://www.piwheels.org/simple" > /etc/p
 # replicate raspberry pi os pip.conf
 
 # remove existing python3
-RUN apt remove python3
+RUN apt remove -y python3
