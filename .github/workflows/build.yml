@@ -8,6 +8,10 @@ on:
   push:
     branches: [ "main" ]
 
+concurrency:
+  group: "python"
+  cancel-in-progress: true
+
 
 jobs:
   build-matrix:
